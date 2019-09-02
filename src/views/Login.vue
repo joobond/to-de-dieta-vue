@@ -9,14 +9,34 @@
                 <label for="senha">Senha</label>
                 <input type="password" class="form-control" id="senha" placeholder="Digite sua senha">
             </div>
-            <button type="submit" class="btn btn-primary" id="btnLogin">Entrar</button>
+            <button @click="login" class="btn btn-primary" id="btnLogin">Entrar</button>
         </form>
     </div>
 </template>
 
 <script>
+import firebase from 'firebase';
 export default {
   name: 'login',
+  data(){
+      return{
+          email: '',
+          senha: ''
+      }
+  }, 
+  methods:{
+      login: function(){
+          firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+              (user) => {
+                  this.$router.replace('cadastrarPaciente')
+              },
+              (err) => {
+                  alert('Oops. '+err.message)
+              }
+          );
+      }
+
+  }
 }
 </script>
 

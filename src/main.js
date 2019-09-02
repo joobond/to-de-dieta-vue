@@ -6,10 +6,11 @@ import router from './router';
 import 'bootstrap';
 import 'jquery';
 import 'popper.js';
+import Argon from "./plugins/argon-kit";
 //import './assets/app.scss';
 
 Vue.config.productionTip = false
-
+Vue.use(Argon);
 new Vue({
   router,
   render: h => h(App)

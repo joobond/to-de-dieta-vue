@@ -21,7 +21,33 @@
                 <label for="senha">Senha</label>
                 <input type="password" class="form-control" id="senha" placeholder="Digite uma senha forte">
             </div>
-            <button type="submit" class="btn btn-primary" id="btnLogin">Cadastrar</button>
+            <button @click="cadastrar" class="btn btn-primary" id="btnLogin">Cadastrar</button>
         </form>
     </div>
 </template>
+<script>
+import firebase from 'firebase';
+
+export default {
+    name: 'cadastrar',
+    data(){
+        return{
+            email: '',
+            senha: '',
+        }
+    },
+    methods:{
+        cadastrar: function () {
+            firebase.auth().createUserWithEmailAndPassword(this.email, this.senha)
+                .then(
+                    (user) => {
+                        this.$router.replace('cadastrarPaciente')
+                    },
+                    (err) => {
+                        alert('Oops. '+err.message)
+                    }
+                );
+        }
+    }
+}
+</script>

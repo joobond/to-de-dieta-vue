@@ -3,16 +3,17 @@ import Router from 'vue-router';
 import HelloWorld from '../components/HelloWorld.vue';
 import Header from '../layout/Header.vue';
 import Login from '../views/Login.vue';
-//import CadPaciente from '../views/CadastrarPaciente.vue';
+import CadPaciente from '../views/CadastrarPaciente.vue';
 import CadNutricionista from '../views/CadastrarNutricionista.vue';
 import CadAlimento from '../views/CadastrarAlimento.vue';
 import CadRefeicao from '../views/CadastrarRefeicao.vue';
 import PacientesCadastrados from '../views/PacientesCadastrados.vue';
-//import Argon from "../plugins/argon-kit";
-//import "firebase/database";
+import Argon from "../plugins/argon-kit";
+import firebase from 'firebase'
+import 'firebase/database'
 
 // TODO: Replace the following with your app's Firebase project configuration
-const firebaseConfig = {
+var firebaseConfig = {
   apiKey: "AIzaSyDg-AD8p3MTB3GhmLqupSO6TKrNqXun8TI",
   authDomain: "to-de-dieta.firebaseapp.com",
   databaseURL: "https://to-de-dieta.firebaseio.com",
