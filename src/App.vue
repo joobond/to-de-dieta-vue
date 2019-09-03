@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view name="header"></router-view>
-    <main>
+    <main id="main">
       <router-view/>
     </main>
   </div>
@@ -21,5 +21,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#main{
+    display: flex;
+    justify-items: center;
+
 }
 </style>

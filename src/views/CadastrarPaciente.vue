@@ -1,6 +1,6 @@
 <template>
     <div id="form">
-        <form class="col-sm-6">
+        <form class="">
             <div class="form-group">
                 <label for="nome">Nome</label>
                 <input  type="text" class="form-control " id="nome" placeholder="Nome">
@@ -15,11 +15,11 @@
             </div>
             <div class="form-group">
                 <label for="peso">Peso</label>
-                <input type="number" class="form-control" id="peso" placeholder="55"><span> kg</span>
+                <input type="number" class="form-control" id="peso" placeholder="55">
             </div>
             <div class="form-group">
                 <label for="idade">Idade</label>
-                <input type="number" class="form-control" id="idade" placeholder="13"><span> anos</span>
+                <input type="number" class="form-control" id="idade" placeholder="13">
             </div>
             <div class="form-group">
                 <label for="nivelAtividade">Nível de Atividade</label>
@@ -54,6 +54,8 @@ export default {
         }
         firebase.database().ref('pacientes/'+telefone.value)
             .set(paciente);
+            //console.log(paciente);
+            
         }
     }
 
@@ -62,6 +64,21 @@ export default {
 </script>
 <style>
 #form{
-    margin:0 auto;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+.btn{
+    width: 100%;
+}
+.form-control{
+    max-width: 700px;
+    width:100%;
+    margin: 0 auto;
+}
+.form-group{
+    display: flex;
+    
 }
 </style>
