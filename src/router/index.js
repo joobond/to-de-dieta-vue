@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '../components/HelloWorld.vue';
+import Argon from "../plugins/argon-kit";
+import firebase from 'firebase'
+import 'firebase/database'
+import { nextTick } from 'q';
+
 import Header from '../layout/Header.vue';
 import Login from '../views/Login.vue';
 import CadPaciente from '../views/CadastrarPaciente.vue';
@@ -8,9 +12,7 @@ import CadNutricionista from '../views/CadastrarNutricionista.vue';
 import CadAlimento from '../views/CadastrarAlimento.vue';
 import CadRefeicao from '../views/CadastrarRefeicao.vue';
 import PacientesCadastrados from '../views/PacientesCadastrados.vue';
-import Argon from "../plugins/argon-kit";
-import firebase from 'firebase'
-import 'firebase/database'
+
 
 // TODO: Replace the following with your app's Firebase project configuration
 var firebaseConfig = {
@@ -30,16 +32,19 @@ var firebaseConfig = {
 Vue.use(Router);
 Vue.use(Argon);
 
-export default new Router({
-  linkExactActiveClass: "active",
+  const router = new Router({
+  history: true,
+  data:{
+    usuario: this.currentUser
+  },
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: {
-        header: Header,
-        default: HelloWorld
-      }
+      redirect: '/login'
+    },
+    {
+      path: '*',
+      redirect: '/login'
     },
     {
       path: "/login",
@@ -54,6 +59,9 @@ export default new Router({
       components: {
         header: Header,
         default: CadPaciente
+      },
+      meta: {
+        requiresAuth: true
       }
     },
     {
@@ -70,6 +78,9 @@ export default new Router({
       components: {
         header: Header,
         default: CadAlimento
+      },
+      meta: {
+        requiresAuth: true
       }
     },
     {
@@ -78,6 +89,9 @@ export default new Router({
       components: {
         header: Header,
         default: CadRefeicao
+      },
+      meta: {
+        requiresAuth: true
       }
     },
     {
@@ -86,9 +100,23 @@ export default new Router({
       components: {
         header: Header,
         default: PacientesCadastrados
+      },
+      meta: {
+        requiresAuth: true
       }
     }
   ]
-})
+  });
+
+router.beforeEach((to, from, next) => {
+  const currentUser = firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) next('login');
+  else if (!requiresAuth && currentUser) next('cadastrarPaciente');
+  else next();
+});
+
+export default router;
 
 

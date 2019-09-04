@@ -3,23 +3,23 @@
         <form>
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Nome">
+                <input v-model="nome" type="text" class="form-control" id="nome" placeholder="Nome">
             </div>
             <div class="form-group">
                 <label for="telefone">Telefone</label>
-                <input type="phone" class="form-control" id="telefone" placeholder="(XX) X XXXX XXXX">
+                <input v-model="telefone" type="phone" class="form-control" id="telefone" placeholder="(XX) X XXXX XXXX">
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" class="form-control" id="email" placeholder="example@mail.com">
+                <input v-model="email" type="email" class="form-control" id="email" placeholder="example@mail.com">
             </div>
             <div class="form-group">
                 <label for="crn">CRN</label>
-                <input type="number" class="form-control" id="crn" placeholder="XXXX">
+                <input v-model="crn" type="number" class="form-control" id="crn" placeholder="XXXX">
             </div>
             <div class="form-group">
                 <label for="senha">Senha</label>
-                <input type="password" class="form-control" id="senha" placeholder="Digite uma senha forte">
+                <input v-model="senha" type="password" class="form-control" id="senha" placeholder="Digite uma senha forte">
             </div>
             <button @click="cadastrar" class="btn btn-primary" id="btnLogin">Cadastrar</button>
         </form>
@@ -32,8 +32,11 @@ export default {
     name: 'cadastrar',
     data(){
         return{
+            nome: '',
+            crn: '',
+            telefone: '',
             email: '',
-            senha: '',
+            senha: ''
         }
     },
     methods:{
@@ -41,7 +44,16 @@ export default {
             firebase.auth().createUserWithEmailAndPassword(this.email, this.senha)
                 .then(
                     (user) => {
+                        let nutricionista  ={
+                            nome: this.nome,
+                            crn: this.crn,
+                            telefone: this.telefone,
+                            email: this.email
+                        };
+                        firebase.database().ref('nutricionistas/'+this.email)
+                            .set(nutricionista);
                         this.$router.replace('cadastrarPaciente')
+                        alert('Sua conta foi cadastrata com sucesso!')
                     },
                     (err) => {
                         alert('Oops. '+err.message)

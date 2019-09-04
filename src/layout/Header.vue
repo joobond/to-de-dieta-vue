@@ -29,7 +29,7 @@
                 <span class="btn-inner--icon">
                   <i class="fa fa-sign-in mr-2"></i>
                 </span>
-                        <router-link to="/login" class="nav-link-inner--text" id="loginGeral">Login</router-link>
+                        <router-link @click="sair" class="nav-link-inner--text" id="loginGeral">{{usuario}}</router-link>
                     </a>
                 </li>
             </ul>
@@ -40,12 +40,21 @@
 import BaseNav from "@/components/BaseNav";
 import BaseDropdown from "@/components/BaseDropdown";
 import CloseButton from "@/components/CloseButton";
+import firebase from 'firebase';
 
 export default {
+  data:{
+     usuario: 'teste'
+  },  
   components: {
     BaseNav,
     CloseButton,
     BaseDropdown
+  },
+  methods:{
+      sair: function () {
+          firebase.auth().signOut();
+      }
   }
 };
 </script>
