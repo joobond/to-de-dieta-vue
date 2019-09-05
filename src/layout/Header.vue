@@ -24,14 +24,15 @@
             </ul>
             <ul class="navbar-nav align-items-lg-center ml-lg-auto">
                 <li class="nav-item d-none d-lg-block ml-lg-4">
-                    <a href="https://www.creative-tim.com/product/vue-argon-design-system" target="_blank" rel="noopener"
+                    <a @click="sair" target="_blank" rel="noopener"
                        class="btn btn-neutral btn-icon">
                 <span class="btn-inner--icon">
                   <i class="fa fa-sign-in mr-2"></i>
                 </span>
-                        <router-link @click="sair" class="nav-link-inner--text" id="loginGeral">{{usuario}}</router-link>
+                        <router-link @click="sair" class="nav-link-inner--text" id="loginGeral"></router-link>
                     </a>
                 </li>
+                <li class="nav-item">{{ usuario }}</li>
             </ul>
         </base-nav>
     </header>
@@ -41,10 +42,18 @@ import BaseNav from "@/components/BaseNav";
 import BaseDropdown from "@/components/BaseDropdown";
 import CloseButton from "@/components/CloseButton";
 import firebase from 'firebase';
+import config from '../plugins/config';
 
+firebase.initializeApp(config);
+let caracteres = ['','*','.','@','+','-','_'];
+let nome =  null;
+function removerCaracteresEspeciais(texto, caracteres){
+    caracteres.forEach(caracter => texto = texto.replace(caracter,''));
+    return texto;
+}
 export default {
   data:{
-     usuario: 'teste'
+     usuario: this.nome
   },  
   components: {
     BaseNav,
@@ -53,8 +62,27 @@ export default {
   },
   methods:{
       sair: function () {
-          firebase.auth().signOut();
+          firebase.auth().signOut().then(
+              () =>{
+                  this.$router.replace('login')
+              }
+          );
       }
+  },
+  mounted: function () {
+    let user = firebase.auth().currentUser;
+    let emailCurrent = null;
+    let emailNovo = null;
+    let nome = null;
+
+    if(user != null){
+        user.providerData.forEach(function (profile) {
+            emailCurrent = profile.email;
+    });
+    emailNovo = removerCaracteresEspeciais(emailCurrent, caracteres);
+    nome = firebase.database().ref('nutricionistas/' + emailNovo).once('nome');
+    debugger
+}
   }
 };
 </script>

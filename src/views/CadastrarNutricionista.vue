@@ -50,7 +50,8 @@ export default {
                             telefone: this.telefone,
                             email: this.email
                         };
-                        firebase.database().ref('nutricionistas/'+this.email)
+                        let emailNovo = this.email.split('@')[0];
+                        firebase.database().ref('nutricionistas/'+this.emailNovo)
                             .set(nutricionista);
                         this.$router.replace('cadastrarPaciente')
                         alert('Sua conta foi cadastrata com sucesso!')

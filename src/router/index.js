@@ -14,19 +14,18 @@ import CadRefeicao from '../views/CadastrarRefeicao.vue';
 import PacientesCadastrados from '../views/PacientesCadastrados.vue';
 
 
-// TODO: Replace the following with your app's Firebase project configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyDg-AD8p3MTB3GhmLqupSO6TKrNqXun8TI",
-  authDomain: "to-de-dieta.firebaseapp.com",
-  databaseURL: "https://to-de-dieta.firebaseio.com",
-  projectId: "to-de-dieta",
-  storageBucket: "to-de-dieta.appspot.com",
-  messagingSenderId: "1053641145914",
-  appId: "1:1053641145914:web:dd47dc648cd5bc11"
-};
- 
- // Initialize Firebase
- firebase.initializeApp(firebaseConfig);
+// // TODO: Replace the following with your app's Firebase project configuration
+// var firebaseConfig = {
+//   apiKey: "AIzaSyDg-AD8p3MTB3GhmLqupSO6TKrNqXun8TI",
+//   authDomain: "to-de-dieta.firebaseapp.com",
+//   databaseURL: "https://to-de-dieta.firebaseio.com",
+//   projectId: "to-de-dieta",
+//   storageBucket: "to-de-dieta.appspot.com",
+//   messagingSenderId: "1053641145914",
+//   appId: "1:1053641145914:web:dd47dc648cd5bc11"
+// };
+
+//  firebase.initializeApp(firebaseConfig);
 
 
 Vue.use(Router);
