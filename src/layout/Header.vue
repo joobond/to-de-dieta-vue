@@ -32,7 +32,7 @@
                         <router-link @click="sair" class="nav-link-inner--text" id="loginGeral"></router-link>
                     </a>
                 </li>
-                <li class="nav-item">{{ usuario }}</li>
+                <li class="nav-item" >{{ usuario }}</li>
             </ul>
         </base-nav>
     </header>
@@ -53,8 +53,8 @@ function removerCaracteresEspeciais(texto, caracteres){
 }
 export default {
   data:{
-     usuario: this.nome
-  },  
+     usuario: 'teste'
+  }, 
   components: {
     BaseNav,
     CloseButton,
@@ -80,8 +80,7 @@ export default {
             emailCurrent = profile.email;
     });
     emailNovo = removerCaracteresEspeciais(emailCurrent, caracteres);
-    nome = firebase.database().ref('nutricionistas/' + emailNovo).once('nome');
-    debugger
+    //nome = firebase.ref.child("nutricionistas").child(emailNovo).child("nome");
 }
   }
 };

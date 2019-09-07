@@ -11,7 +11,7 @@ import CadPaciente from '../views/CadastrarPaciente.vue';
 import CadNutricionista from '../views/CadastrarNutricionista.vue';
 import CadAlimento from '../views/CadastrarAlimento.vue';
 import CadRefeicao from '../views/CadastrarRefeicao.vue';
-import PacientesCadastrados from '../views/PacientesCadastrados.vue';
+import VisualizarPacientes from '../views/VisualizarPacientes.vue';
 
 
 // // TODO: Replace the following with your app's Firebase project configuration
@@ -95,15 +95,15 @@ Vue.use(Argon);
     },
     {
       path: "/pacientes",
-      name: "PacientesCadastrados",
+      name: "visualizarPacientes",
       components: {
         header: Header,
-        default: PacientesCadastrados
+        default: VisualizarPacientes
       },
       meta: {
         requiresAuth: true
       }
-    }
+    },
   ]
   });
 

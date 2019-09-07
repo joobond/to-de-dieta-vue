@@ -33,7 +33,7 @@ export default {
   }, 
   methods:{
       login: function(){
-          firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+          firebase.auth().signInWithEmailAndPassword(this.email, this.senha).then(
               (user) => {
                   this.$router.replace('cadastrarPaciente')
                   alert(`Bem Vindo, ${{email}}`)

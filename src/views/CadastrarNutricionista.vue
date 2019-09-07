@@ -27,6 +27,11 @@
 </template>
 <script>
 import firebase from 'firebase';
+let caracteres = ['','*','.','@','+','-','_'];
+function removerCaracteresEspeciais(texto, caracteres){
+    caracteres.forEach(caracter => texto = texto.replace(caracter,''));
+    return texto;
+}
 
 export default {
     name: 'cadastrar',
@@ -50,8 +55,9 @@ export default {
                             telefone: this.telefone,
                             email: this.email
                         };
-                        let emailNovo = this.email.split('@')[0];
-                        firebase.database().ref('nutricionistas/'+this.emailNovo)
+                        debugger
+                        let emailNovo = removerCaracteresEspeciais(this.email, caracteres);
+                        firebase.database().ref('nutricionistas/'+emailNovo)
                             .set(nutricionista);
                         this.$router.replace('cadastrarPaciente')
                         alert('Sua conta foi cadastrata com sucesso!')
