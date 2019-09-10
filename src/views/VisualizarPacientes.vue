@@ -6,10 +6,10 @@
 <script>
 import firebase from 'firebase';
 import Vue from 'vue';
-let paciente_ref = firebase.database().ref('/pacientes/69992019585');
+debugger
 var nome = null;
-paciente_ref.once('value').then(function(snapshot) {
-   nome = snapshot.val().nome;
+firebase.database().ref('/pacientes/69992019585').once('value').then(function(data) {
+  var nome = data.val().nome;
 });
 
 console.log(nome);
@@ -33,7 +33,7 @@ function visualizarPaciente(){
 export default {
     data() {
         return {
-            pacientes: listaPacientes
+            pacientes: 'teste'
         };
     }
 }
